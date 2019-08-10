@@ -26,7 +26,7 @@ export default function manageRestaurant(state = {
       const listWithoutRest = state.restaurants.filter(rest => rest.id !== review.restaurantId)
       console.log('The list without current restaurant is', listWithoutRest)
       return {...state, restaurants: listWithoutRest.concat([{...rest[0], reviews: [...rest[0].reviews, review]}])}
-
+      // TODO: fix previous line
     default:
       return state
 
