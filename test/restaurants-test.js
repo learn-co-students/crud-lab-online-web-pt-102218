@@ -61,11 +61,11 @@ describe('Restaurants Component', () => {
 });
 
 describe('Restaurant Component', () => {
-  // it('displays the appropriate text', () => {
-  //   const restaurant = { text: 'hello', id: 3 }
-  //   const wrapper = shallow(<Restaurant restaurant={restaurant} />)
-  //   expect(wrapper.text()).to.contain('hello');
-  // });
+  it('displays the appropriate text', () => {
+    const restaurant = { text: 'hello', id: 3 }
+    const wrapper = shallow(<Restaurant restaurant={restaurant} />)
+    expect(wrapper.text()).to.contain('hello');
+  });
 
   it('renders an li', () => {
     const restaurant = { text: 'hello', id: 3 }
@@ -153,7 +153,7 @@ describe('Restaurant Component with Redux', () => {
     deleteButton.simulate('click');
 
     expect(store.getState().restaurants.length).to.equal(1);
-    expect(store.getState().restaurants[0].text).to.equal('Chip Shop');
+    expect(store.getState().restaurants[0].text).to.equal('Chip Shzop');
 
     input.simulate('change', { target: { value: 'Song' } });
     form.simulate('submit',  { preventDefault() {} });

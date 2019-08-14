@@ -28,6 +28,7 @@ class RestaurantInput extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+          <label>Restaurant Name:</label>
           <input type="text" value={this.state.text} onChange={this.handleChange}/>
           <input type="submit"/>
         </form>
