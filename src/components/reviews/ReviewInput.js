@@ -19,7 +19,7 @@ class ReviewInput extends Component {
     this.setState({
       text: ''
     })
-    debugger 
+   
   }
   render() {
     return (
