@@ -153,7 +153,7 @@ describe('Restaurant Component with Redux', () => {
     deleteButton.simulate('click');
 
     expect(store.getState().restaurants.length).to.equal(1);
-    expect(store.getState().restaurants[0].text).to.equal('Chip Shzop');
+    expect(store.getState().restaurants[0].text).to.equal('Chip Shop');
 
     input.simulate('change', { target: { value: 'Song' } });
     form.simulate('submit',  { preventDefault() {} });
