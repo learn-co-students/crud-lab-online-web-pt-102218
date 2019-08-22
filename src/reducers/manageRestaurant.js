@@ -1,9 +1,10 @@
 
 import cuid from 'cuid';
+import { toUnicode } from 'punycode';
 export const cuidFn = cuid;
 
 export default function manageRestaurant(state = {
-  restaurants: []
+  restaurants: [], reviews: []
 }, action) {
   switch(action.type) {
     case 'ADD_RESTAURANT':
@@ -14,19 +15,20 @@ export default function manageRestaurant(state = {
       return {...state, restaurants: [...state.restaurants, restaurant]}
 
     case 'DELETE_RESTAURANT':
-      return {restaurants: state.restaurants.filter(restaurant => restaurant.id !== action.id)}
+      return {
+        reviews: state.reviews.filter((review) => review.restaurantId !==action.id),
+        restaurants: state.restaurants.filter(restaurant => restaurant.id !== action.id)
+      }
 
     case 'ADD_REVIEW':
       const review = {
         ...action.review, id: cuid()
       }
-      console.log(review)
-      const rest = state.restaurants.filter(restaurant => restaurant.id === review.restaurantId)
-      console.log(rest)
-      const listWithoutRest = state.restaurants.filter(rest => rest.id !== review.restaurantId)
-      console.log('The list without current restaurant is', listWithoutRest)
-      return {...state, restaurants: listWithoutRest.concat([{...rest[0], reviews: [...rest[0].reviews, review]}])}
-      // TODO: fix previous line
+      return {...state, reviews: [...state.reviews, review]}
+
+    case 'DELETE_REVIEW':
+      return {...state, reviews: state.reviews.filter((review) => review.id !== action.id)}
+
     default:
       return state
 
