@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class RestaurantInput extends Component {
+export class RestaurantInput extends Component {
   constructor() {
     super();
     this.handleOnChange = this.handleOnChange.bind(this)
@@ -9,20 +9,20 @@ class RestaurantInput extends Component {
   }
 
   state = {
-    restaurantName: ''
+    text: ''
   }
 
   handleOnChange(event) {
     this.setState(
-      {restaurantName: event.target.value}
+      {text: event.target.value}
     )
   }
 
   handleOnSubmit(event){
     event.preventDefault()
-    this.props.addRestaurant(event.target.value)
+    this.props.addRestaurant(this.state.text)
     this.setState(
-      {restaurantName: ""}
+      {text: ""}
     )
   }
 
@@ -31,8 +31,8 @@ class RestaurantInput extends Component {
     return (
       <div>
         <form onSubmit={this.handleOnSubmit}>
-          <label for="name">Name: </label>
-          <input type="text" name="name" value={this.state.restaurantName}/>
+          <label htmlFor="name">Name: </label>
+          <input type="text" name="name" value={this.state.text} onChange={this.handleOnChange} />
           <input type="submit"/>
         </form>
       </div>
@@ -41,6 +41,6 @@ class RestaurantInput extends Component {
 };
 
 const mapDispatchToProps = dispatch => {
-  return { addRestaurant: payload => dispatch({ type: "ADD_RESTAURANT", payload })}
+  return { addRestaurant: payload => dispatch({ type: "ADD_RESTAURANT", payload: {text: payload} })}
 }
 export default connect(null, mapDispatchToProps)(RestaurantInput);

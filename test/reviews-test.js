@@ -9,8 +9,8 @@ import manageRestaurant, { cuidFn } from '../src/reducers/manageRestaurant';
 import App from '../src/App';
 import Restaurants from '../src/components/restaurants/Restaurants';
 import Restaurant from '../src/components/restaurants/Restaurant';
-import ReviewInput from '../src/components/reviews/ReviewInput';
-import Reviews from '../src/components/reviews/Reviews';
+import { ReviewInput } from '../src/components/reviews/ReviewInput';
+import { Reviews } from '../src/components/reviews/Reviews';
 import ReviewsContainer from '../src/containers/ReviewsContainer';
 import Review from '../src/components/reviews/Review';
 import Adapter from 'enzyme-adapter-react-16'
@@ -115,23 +115,24 @@ describe('Reviews Component', () => {
 
   it('displays a review for when it is associated with the restaurant', () => {
     const store = createStore(manageRestaurant);
-    store.dispatch({type: 'ADD_RESTAURANT', text: 'LoKi'})
+    store.dispatch({type: 'ADD_RESTAURANT', payload: { text: 'LoKi' }})
     let restaurantId = store.getState().restaurants[0].id
-    store.dispatch({ type: 'ADD_REVIEW', review: { text: "Was great", restaurantId } })
-    store.dispatch({ type: 'ADD_REVIEW', review: { text: "Was not great", restaurantId } })
+    store.dispatch({ type: 'ADD_REVIEW', payload: { text: "Was great",  restaurantId  }})
+    store.dispatch({ type: 'ADD_REVIEW', payload: { text: "Was not great", restaurantId } })
     const wrapper = mount(<Provider store={store}><App /></Provider>);
-
+    console.log("store: ", store.getState())
+    console.log("we found:", wrapper)
 
     expect(wrapper.find(Review)).to.have.length(2);
   });
 
   it('does not display any review unassociated with the restaurant', () => {
     const store = createStore(manageRestaurant);
-    store.dispatch({type: 'ADD_RESTAURANT', text: 'Tarry Lodge'})
+    store.dispatch({type: 'ADD_RESTAURANT', payload: { text: 'Tarry Lodge' }})
     let restaurantId = store.getState().restaurants[0].id
-    store.dispatch({ type: 'ADD_REVIEW', review: { text: "it was good", restaurantId } })
-    store.dispatch({ type: 'ADD_REVIEW', review: { text: "it was great", restaurantId } })
-    store.dispatch({ type: 'ADD_REVIEW', review: { text: "it was bad", restaurantId: "test"} })
+    store.dispatch({ type: 'ADD_REVIEW', payload: { text: "it was good", restaurantId } })
+    store.dispatch({ type: 'ADD_REVIEW', payload: { text: "it was great", restaurantId } })
+    store.dispatch({ type: 'ADD_REVIEW', payload: { text: "it was bad", restaurantId: "test"} })
     const wrapper = mount(<Provider store={store}><App /></Provider>);
     expect(wrapper.find(Review)).to.have.length(2);
     expect(wrapper.text()).to.contain('it was good');

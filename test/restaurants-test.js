@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import React from 'react';
 import { configure, shallow, mount } from 'enzyme';
-import RestaurantInput from '../src/components/restaurants/RestaurantInput'
+import { RestaurantInput } from '../src/components/restaurants/RestaurantInput'
 import sinon from 'sinon'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
